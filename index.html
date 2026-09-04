@@ -14,13 +14,13 @@
 MASSIF — Alpine Guiding Bureau
 Creative direction (the contract):
 — Mood: pre-dawn, precise, humble, weighted
-— Palette: ink #0B0E14 · glacier #F2F4F1 · expedition orange #FF4D00
+— Palette: ink #000000 · glacier #F2F4F1 · expedition orange #FF4D00
 — Type: Archivo (condensed black display / normal body) + Space Mono (data)
 — Motion: ONE ease (expo.out), heavy Lenis, one pin (The Line)
 ============================================================ */
 :root {
 /* Palette — base, ONE accent, text */
---ink:        #0B0E14;   /* pre-dawn, blue-cast — never pure black */
+--ink:        #000000;   /* primary black field */
 --ink-2:      #07090D;   /* footer night */
 --glacier:    #F2F4F1;   /* lights-on */
 --white:      #FAFBFA;   /* whiteout fog */
@@ -253,7 +253,7 @@ display: flex; flex-direction: column; justify-content: flex-end;
 overflow: clip; padding-bottom: 0;
 }
 .hero__sky { position: absolute; inset: 0; z-index: -1; overflow: clip; background:
-linear-gradient(to bottom, #04060B 0%, #0B0E14 52%, #131A28 78%, #1B2434 100%); }
+linear-gradient(to bottom, #000000 0%, #000000 52%, #090909 78%, #121212 100%); }
 .hero__photo {
 position: absolute; inset: -6% 0; width: 100%; height: 112%;
 object-fit: cover; object-position: center 35%;
@@ -267,8 +267,8 @@ when the white type actually needs protecting. */
 .hero__shade {
 position: absolute; inset: 0; opacity: .5;
 background: linear-gradient(to bottom,
-rgba(4,6,11,.42) 0%, rgba(11,14,20,.12) 38%,
-rgba(11,14,20,.55) 68%, rgba(11,14,20,.94) 88%, #0B0E14 100%);
+rgba(4,6,11,.42) 0%, rgba(0,0,0,.12) 38%,
+rgba(0,0,0,.55) 68%, rgba(0,0,0,.94) 88%, #000000 100%);
 }
 .stars {
 position: absolute; inset: 0; opacity: .85;
@@ -450,16 +450,19 @@ fits the viewport, whatever the screen height. */
 .guides__plate { position: sticky; top: 11vh; }
 .plate__stack {
 position: relative; height: 72vh; overflow: clip;
-border-radius: 2px; background: #10141b;
+border-radius: 2px; background: var(--ink);
 }
 .plate__img { position: absolute; inset: 0; margin: 0; opacity: 0; }
-.plate__img img {
-width: 100%; height: 100%; object-fit: cover; display: block;
+.plate__img img,
+.plate__img video {
+position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block;
 /* was grayscale(.6) brightness(.92) — 60% desaturated read as flat next to
 the full-colour plates elsewhere. The scrim below carries the caption's
 legibility, so the portraits don't need to be dimmed for it. */
 filter: contrast(1.06) saturate(1.06);
 }
+.plate__img video { z-index: 1; }
+.is-static .plate__img video { display: none; }
 .plate__scrim {
 position: absolute; inset: auto 0 0 0; height: 58%; pointer-events: none;
 background: linear-gradient(to top, rgba(7,10,15,.94) 0%, rgba(7,10,15,.72) 34%, rgba(7,10,15,0) 100%);
@@ -1046,7 +1049,7 @@ background: var(--accent); border-radius: 2px;
 position: absolute; top: 50%; left: calc(var(--p) * 100%);
 width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px;
 border-radius: 50%; background: var(--accent);
-box-shadow: 0 0 0 3px rgba(11,14,20,1);
+box-shadow: 0 0 0 3px rgba(0,0,0,1);
 }
 .live__state { justify-self: start; white-space: nowrap; }
 .live__state.is-push { color: rgba(233,237,242,.9); }
@@ -1127,8 +1130,8 @@ will-change: transform;
 .refuge__scrim {
 position: absolute; inset: 0;
 background:
-linear-gradient(180deg, #0B0E14 0%, rgba(11,14,20,0) 22%, rgba(11,14,20,0) 74%, #0B0E14 100%),
-linear-gradient(96deg, rgba(11,14,20,.44) 0%, rgba(11,14,20,.14) 20%, rgba(11,14,20,.48) 40%, rgba(11,14,20,.66) 58%, rgba(11,14,20,.62) 100%);
+linear-gradient(180deg, #000000 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 74%, #000000 100%),
+linear-gradient(96deg, rgba(0,0,0,.44) 0%, rgba(0,0,0,.14) 20%, rgba(0,0,0,.48) 40%, rgba(0,0,0,.66) 58%, rgba(0,0,0,.62) 100%);
 }
 .refuge .slate, .refuge__grid { position: relative; z-index: 1; }
 .refuge__grid {
@@ -1185,8 +1188,8 @@ margin-bottom: 1.5rem; color: rgba(233,237,242,.78);
 .refuge__img { object-position: 26% 45%; }
 .refuge__scrim {
 background: linear-gradient(180deg,
-rgba(11,14,20,.55) 0%, rgba(11,14,20,.28) 12%,
-rgba(11,14,20,.86) 34%, #0B0E14 62%, #0B0E14 100%);
+rgba(0,0,0,.55) 0%, rgba(0,0,0,.28) 12%,
+rgba(0,0,0,.86) 34%, #000000 62%, #000000 100%);
 }
 }
 /* ============================================================
@@ -1352,7 +1355,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 01 — 03:10 — 1 035 M — ALPINE START (hero, pre-dawn)
          ============================================================ -->
-    <section class="hero sec--dark" data-bg="#0B0E14" data-alt="1035">
+    <section class="hero sec--dark" data-bg="#000000" data-alt="1035">
       <div class="hero__sky" aria-hidden="true">
         <!-- Same frame, two times of day. Night is what loads — this is the
              03:10 alpine start — and the daylight replica fades up over the
@@ -1386,7 +1389,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 02 — 04:40 — 1 890 M — THE BUREAU (manifesto + only stats)
          ============================================================ -->
-    <section id="bureau" class="bureau sec--dark" data-bg="#0B0E14" data-alt="1890">
+    <section id="bureau" class="bureau sec--dark" data-bg="#000000" data-alt="1890">
       <div class="slate mono"><span>◮ PHASE 02 / ALIGN</span><span>(THE CODEV METHOD)</span><span>IDEA → LAUNCH</span></div>
 
       <h2 class="manifesto display" data-lines="">
@@ -1400,7 +1403,7 @@ body { cursor: auto; }
       <div class="pitches">
         <article class="pitch" data-pitch="">
           <figure class="pitch__media">
-            <img src="phase2/phase2-discovery.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Software team mapping a product on a whiteboard">
+            <img src="phase2/phase2-discovery-generated.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Product discovery research map with user-journey fragments">
           </figure>
           <div class="pitch__body">
             <p class="pitch__label mono"><span>(CLARITY)</span><span class="pitch__n">PHASE 01 / 03</span></p>
@@ -1412,7 +1415,7 @@ body { cursor: auto; }
 
         <article class="pitch" data-pitch="">
           <figure class="pitch__media">
-            <img src="phase2/phase2-product-shaping.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Product team arranging interface wireframes and user flows">
+            <img src="phase2/phase2-product-shaping-generated.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Layered product wireframes and interface flow map">
           </figure>
           <div class="pitch__body">
             <p class="pitch__label mono"><span>(SYSTEMS)</span><span class="pitch__n">PHASE 02 / 03</span></p>
@@ -1424,7 +1427,7 @@ body { cursor: auto; }
 
         <article class="pitch" data-pitch="">
           <figure class="pitch__media">
-            <img src="phase2/phase2-system-collaboration.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Designer and developer reviewing a connected software system">
+            <img src="phase2/phase2-system-collaboration-generated.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Connected design frontend and backend system map">
           </figure>
           <div class="pitch__body">
             <p class="pitch__label mono"><span>(SHIP)</span><span class="pitch__n">PHASE 03 / 03</span></p>
@@ -1470,7 +1473,7 @@ body { cursor: auto; }
          section and one sticky plate swaps behind them as each discipline takes over. Closes
          the gap in the waypoint numbering — the arc now runs 01 → 12.
          ============================================================ -->
-    <section id="guides" class="guides sec--dark" data-bg="#0B0E14" data-alt="2100">
+    <section id="guides" class="guides sec--dark" data-bg="#000000" data-alt="2100">
       <div class="slate mono"><span>◮ PHASE 03 / CRAFT</span><span>(THE CODEV PRACTICE)</span><span>DESIGN + CODE</span></div>
 
       <!-- The headline sits INSIDE the left column so the plate column starts
@@ -1516,11 +1519,11 @@ body { cursor: auto; }
 
         <aside class="guides__plate">
           <div class="plate__stack">
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-product-design.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Product design wireframes and user-flow cards arranged in a dark studio"></figure>
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-frontend-engineering.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Frontend interface layouts displayed on a monitor in a dark studio"></figure>
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-backend-engineering.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Abstract backend architecture diagram on a glass board beside server hardware"></figure>
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-product-strategy.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Product strategy roadmap cards arranged into a clear sequence on a dark table"></figure>
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-delivery-launch.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Finished digital product displayed across a desktop monitor, tablet, and phone"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-product-design-generated.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Product design system showing research notes, user flow, wireframes, interface states, and responsive screens"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-frontend-engineering-generated.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Frontend engineering system showing responsive screens, component structure, and interaction states"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-backend-engineering-generated.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Backend engineering architecture showing APIs, services, data layers, and scale connections"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-product-strategy-generated.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Product strategy board showing signals, priorities, roadmap, opportunity mapping, and direction"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-delivery-launch-generated.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Delivery and launch board showing QA, release milestones, launch steps, device screens, and shipped status"></figure>
 
             <!-- The info lives INSIDE the frame. Below it, the specs sat off
                  the fold at any normal viewport height until sticky had
@@ -1900,7 +1903,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 08 — 17:45 — 2 730 M — THE LOG (evening falls)
          ============================================================ -->
-    <section id="log" class="log sec--dark" data-bg="#0B0E14" data-alt="2730">
+    <section id="log" class="log sec--dark" data-bg="#000000" data-alt="2730">
       <div class="slate mono"><span>◮ PHASE 08 / RELEASES</span><span>(THE LAUNCH LOG)</span><span>RELEASED · LEARNED</span></div>
       <p class="log__note mono" data-reveal="">EVERY BUILD, EVERY OUTCOME. THE EDGE CASES INCLUDED.</p>
 
@@ -1971,7 +1974,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 10 — 20:15 — 1 240 M — CONDITION REPORTS (quiet)
          ============================================================ -->
-    <section class="reports sec--dark" data-bg="#0B0E14" data-alt="1240">
+    <section class="reports sec--dark" data-bg="#000000" data-alt="1240">
       <div class="slate mono"><span>◮ PHASE 10 / SIGNAL</span><span>(BUILD REPORTS)</span><span>IN PROGRESS · LIVE</span></div>
 
       <!-- One board. The top half is the ropes that haven't come back yet;
@@ -2078,7 +2081,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 11 — 21:00 — 1 035 M — REFUGE (FAQ + kit)
          ============================================================ -->
-    <section class="refuge sec--dark" data-bg="#0B0E14" data-alt="1035">
+    <section class="refuge sec--dark" data-bg="#000000" data-alt="1035">
       <!-- Full-bleed plate: the hut holds the left third, the valley opens on
            the right and the questions are set into that open air. -->
       <div class="refuge__bg" aria-hidden="true">

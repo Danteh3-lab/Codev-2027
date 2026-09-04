@@ -3,7 +3,7 @@ version: alpha
 name: "CODEV"
 description: "A software development studio presented as a measured build log: heavy typography, interface light, and one signal-orange progress marker."
 colors:
-  ink: "#0B0E14"
+  ink: "#000000"
   ink-2: "#07090D"
   glacier: "#F2F4F1"
   white: "#FAFBFA"
@@ -58,7 +58,7 @@ CODEV should feel like reading a build log at the moment a product becomes real:
 
 ## Colors
 
-The page uses pre-dawn ink `#0B0E14` and footer night `#07090D` as its primary atmosphere. Glacier `#F2F4F1` and white `#FAFBFA` create the light / signal turn. Signal orange `#FF4D00` is expressive and semantic: it marks actions, live progress, build waypoints, and the product's decisive moments. Text-dark `#E9EDF2` and text-light `#12161D` preserve contrast on their respective surfaces. Keep the contrast-first scrollbar and keyboard focus treatment visible on every theme.
+The page uses a solid black field `#000000` and footer night `#07090D` as its primary atmosphere. Glacier `#F2F4F1` and white `#FAFBFA` create the light / signal turn. Signal orange `#FF4D00` is expressive and semantic: it marks actions, live progress, build waypoints, and the product's decisive moments. Text-dark `#E9EDF2` and text-light `#12161D` preserve contrast on their respective surfaces. Keep the contrast-first scrollbar and keyboard focus treatment visible on every theme.
 
 ## Typography
 
