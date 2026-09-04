@@ -14,13 +14,13 @@
 MASSIF — Alpine Guiding Bureau
 Creative direction (the contract):
 — Mood: pre-dawn, precise, humble, weighted
-— Palette: ink #0B0E14 · glacier #F2F4F1 · expedition orange #FF4D00
+— Palette: ink #000000 · glacier #F2F4F1 · expedition orange #FF4D00
 — Type: Archivo (condensed black display / normal body) + Space Mono (data)
 — Motion: ONE ease (expo.out), heavy Lenis, one pin (The Line)
 ============================================================ */
 :root {
 /* Palette — base, ONE accent, text */
---ink:        #0B0E14;   /* pre-dawn, blue-cast — never pure black */
+--ink:        #000000;   /* primary black field */
 --ink-2:      #07090D;   /* footer night */
 --glacier:    #F2F4F1;   /* lights-on */
 --white:      #FAFBFA;   /* whiteout fog */
@@ -253,7 +253,7 @@ display: flex; flex-direction: column; justify-content: flex-end;
 overflow: clip; padding-bottom: 0;
 }
 .hero__sky { position: absolute; inset: 0; z-index: -1; overflow: clip; background:
-linear-gradient(to bottom, #04060B 0%, #0B0E14 52%, #131A28 78%, #1B2434 100%); }
+linear-gradient(to bottom, #000000 0%, #000000 52%, #090909 78%, #121212 100%); }
 .hero__photo {
 position: absolute; inset: -6% 0; width: 100%; height: 112%;
 object-fit: cover; object-position: center 35%;
@@ -267,8 +267,8 @@ when the white type actually needs protecting. */
 .hero__shade {
 position: absolute; inset: 0; opacity: .5;
 background: linear-gradient(to bottom,
-rgba(4,6,11,.42) 0%, rgba(11,14,20,.12) 38%,
-rgba(11,14,20,.55) 68%, rgba(11,14,20,.94) 88%, #0B0E14 100%);
+rgba(4,6,11,.42) 0%, rgba(0,0,0,.12) 38%,
+rgba(0,0,0,.55) 68%, rgba(0,0,0,.94) 88%, #000000 100%);
 }
 .stars {
 position: absolute; inset: 0; opacity: .85;
@@ -450,19 +450,22 @@ fits the viewport, whatever the screen height. */
 .guides__plate { position: sticky; top: 11vh; }
 .plate__stack {
 position: relative; height: 72vh; overflow: clip;
-border-radius: 2px; background: #10141b;
+border-radius: 2px; background: var(--ink);
 }
 .plate__img { position: absolute; inset: 0; margin: 0; opacity: 0; }
-.plate__img img {
-width: 100%; height: 100%; object-fit: cover; display: block;
+.plate__img img,
+.plate__img video {
+position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block;
 /* was grayscale(.6) brightness(.92) — 60% desaturated read as flat next to
 the full-colour plates elsewhere. The scrim below carries the caption's
 legibility, so the portraits don't need to be dimmed for it. */
 filter: contrast(1.06) saturate(1.06);
 }
+.plate__img video { z-index: 1; }
+.is-static .plate__img video { display: none; }
 .plate__scrim {
-position: absolute; inset: auto 0 0 0; height: 58%; pointer-events: none;
-background: linear-gradient(to top, rgba(7,10,15,.94) 0%, rgba(7,10,15,.72) 34%, rgba(7,10,15,0) 100%);
+position: absolute; inset: auto 0 0 0; height: 34%; pointer-events: none;
+background: linear-gradient(to top, rgba(7,10,15,.88) 0%, rgba(7,10,15,.42) 48%, rgba(7,10,15,0) 100%);
 }
 /* the caption rides inside the frame, so it can never be scrolled away
 from the portrait it describes */
@@ -545,10 +548,9 @@ white-space: nowrap;
 bottom: auto; top: calc(100% + .5rem);
 left: auto; right: 0; transform: none;
 }
-/* The two lines run in sequence, not together: the first is INK — read
-against the pale dusk sky while the rope is still in the dark — and the
-second is full glacier-white once the light has arrived. The colour
-change is the same idea as the copy. */
+/* The two lines run in sequence, not together: both stay glacier-white
+through the dark-to-light build so the copy remains legible as the scene
+changes underneath it. */
 .drift {
 position: absolute; z-index: 5; white-space: nowrap;
 font-size: clamp(2.4rem, 7vw, 7rem);
@@ -557,7 +559,7 @@ will-change: filter, opacity, transform;
 }
 .drift--a {
 top: 14%; left: 6vw;
-color: #080B10;
+color: var(--glacier);
 text-shadow: 0 0 60px rgba(226,234,244,.28);   /* lifts it off the darker frames */
 }
 .drift--b {
@@ -1061,7 +1063,7 @@ background: var(--accent); border-radius: 2px;
 position: absolute; top: 50%; left: calc(var(--p) * 100%);
 width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px;
 border-radius: 50%; background: var(--accent);
-box-shadow: 0 0 0 3px rgba(11,14,20,1);
+box-shadow: 0 0 0 3px rgba(0,0,0,1);
 }
 .live__state { justify-self: start; white-space: nowrap; }
 .live__state.is-push { color: rgba(233,237,242,.9); }
@@ -1142,8 +1144,8 @@ will-change: transform;
 .refuge__scrim {
 position: absolute; inset: 0;
 background:
-linear-gradient(180deg, #0B0E14 0%, rgba(11,14,20,0) 22%, rgba(11,14,20,0) 74%, #0B0E14 100%),
-linear-gradient(96deg, rgba(11,14,20,.44) 0%, rgba(11,14,20,.14) 20%, rgba(11,14,20,.48) 40%, rgba(11,14,20,.66) 58%, rgba(11,14,20,.62) 100%);
+linear-gradient(180deg, #000000 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 74%, #000000 100%),
+linear-gradient(96deg, rgba(0,0,0,.44) 0%, rgba(0,0,0,.14) 20%, rgba(0,0,0,.48) 40%, rgba(0,0,0,.66) 58%, rgba(0,0,0,.62) 100%);
 }
 .refuge .slate, .refuge__grid { position: relative; z-index: 1; }
 .refuge__grid {
@@ -1200,8 +1202,8 @@ margin-bottom: 1.5rem; color: rgba(233,237,242,.78);
 .refuge__img { object-position: 26% 45%; }
 .refuge__scrim {
 background: linear-gradient(180deg,
-rgba(11,14,20,.55) 0%, rgba(11,14,20,.28) 12%,
-rgba(11,14,20,.86) 34%, #0B0E14 62%, #0B0E14 100%);
+rgba(0,0,0,.55) 0%, rgba(0,0,0,.28) 12%,
+rgba(0,0,0,.86) 34%, #000000 62%, #000000 100%);
 }
 }
 /* ============================================================
@@ -1367,7 +1369,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 01 — 03:10 — 1 035 M — ALPINE START (hero, pre-dawn)
          ============================================================ -->
-    <section class="hero sec--dark" data-bg="#0B0E14" data-alt="1035">
+    <section class="hero sec--dark" data-bg="#000000" data-alt="1035">
       <div class="hero__sky" aria-hidden="true">
         <!-- Same frame, two times of day. Night is what loads — this is the
              03:10 alpine start — and the daylight replica fades up over the
@@ -1401,7 +1403,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 02 — 04:40 — 1 890 M — THE BUREAU (manifesto + only stats)
          ============================================================ -->
-    <section id="bureau" class="bureau sec--dark" data-bg="#0B0E14" data-alt="1890">
+    <section id="bureau" class="bureau sec--dark" data-bg="#000000" data-alt="1890">
       <div class="slate mono"><span>◮ PHASE 02 / ALIGN</span><span>(THE CODEV METHOD)</span><span>IDEA → LAUNCH</span></div>
 
       <h2 class="manifesto display" data-lines="">
@@ -1415,7 +1417,7 @@ body { cursor: auto; }
       <div class="pitches">
         <article class="pitch" data-pitch="">
           <figure class="pitch__media">
-            <img src="phase2/phase2-discovery.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Software team mapping a product on a whiteboard">
+            <img src="phase2/phase2-discovery-generated.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Product discovery research map with user-journey fragments">
           </figure>
           <div class="pitch__body">
             <p class="pitch__label mono"><span>(CLARITY)</span><span class="pitch__n">PHASE 01 / 03</span></p>
@@ -1427,7 +1429,7 @@ body { cursor: auto; }
 
         <article class="pitch" data-pitch="">
           <figure class="pitch__media">
-            <img src="phase2/phase2-product-shaping.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Product team arranging interface wireframes and user flows">
+            <img src="phase2/phase2-product-shaping-generated.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Layered product wireframes and interface flow map">
           </figure>
           <div class="pitch__body">
             <p class="pitch__label mono"><span>(SYSTEMS)</span><span class="pitch__n">PHASE 02 / 03</span></p>
@@ -1439,7 +1441,7 @@ body { cursor: auto; }
 
         <article class="pitch" data-pitch="">
           <figure class="pitch__media">
-            <img src="phase2/phase2-system-collaboration.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Designer and developer reviewing a connected software system">
+            <img src="phase2/phase2-system-collaboration-generated.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Connected design frontend and backend system map">
           </figure>
           <div class="pitch__body">
             <p class="pitch__label mono"><span>(SHIP)</span><span class="pitch__n">PHASE 03 / 03</span></p>
@@ -1485,7 +1487,7 @@ body { cursor: auto; }
          section and one sticky plate swaps behind them as each discipline takes over. Closes
          the gap in the waypoint numbering — the arc now runs 01 → 12.
          ============================================================ -->
-    <section id="guides" class="guides sec--dark" data-bg="#0B0E14" data-alt="2100">
+    <section id="guides" class="guides sec--dark" data-bg="#000000" data-alt="2100">
       <div class="slate mono"><span>◮ PHASE 03 / CRAFT</span><span>(THE CODEV PRACTICE)</span><span>DESIGN + CODE</span></div>
 
       <!-- The headline sits INSIDE the left column so the plate column starts
@@ -1531,11 +1533,11 @@ body { cursor: auto; }
 
         <aside class="guides__plate">
           <div class="plate__stack">
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-product-design.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Product design wireframes and user-flow cards arranged in a dark studio"></figure>
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-frontend-engineering.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Frontend interface layouts displayed on a monitor in a dark studio"></figure>
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-backend-engineering.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Abstract backend architecture diagram on a glass board beside server hardware"></figure>
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-product-strategy.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Product strategy roadmap cards arranged into a clear sequence on a dark table"></figure>
-            <figure class="plate__img" data-plate=""><img src="phase3/phase3-delivery-launch.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Finished digital product displayed across a desktop monitor, tablet, and phone"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-product-design-generated.jpg" width="1024" height="1536" loading="lazy" decoding="async" alt="Product design system showing research notes, user flow, wireframes, interface states, and responsive screens"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-frontend-engineering-generated.jpg" width="1024" height="1536" loading="lazy" decoding="async" alt="Frontend engineering system showing responsive screens, component structure, and interaction states"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-backend-engineering-generated.jpg" width="1024" height="1536" loading="lazy" decoding="async" alt="Backend engineering architecture showing APIs, services, data layers, and scale connections"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-product-strategy-generated.jpg" width="1024" height="1536" loading="lazy" decoding="async" alt="Product strategy board showing signals, priorities, roadmap, opportunity mapping, and direction"></figure>
+            <figure class="plate__img" data-plate=""><img src="phase3/phase3-delivery-launch-generated.jpg" width="1024" height="1536" loading="lazy" decoding="async" alt="Delivery and launch board showing QA, release milestones, launch steps, device screens, and shipped status"></figure>
 
             <!-- The info lives INSIDE the frame. Below it, the specs sat off
                  the fold at any normal viewport height until sticky had
@@ -1581,19 +1583,19 @@ body { cursor: auto; }
              happens in the process imagery itself. -->
         <div class="line-imgs" aria-hidden="true">
           <figure class="line-img">
-            <img src="phase4/phase4-discover.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-discover-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
           <figure class="line-img" data-stage="1">
-            <img src="phase4/phase4-define.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-define-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
           <figure class="line-img" data-stage="2">
-            <img src="phase4/phase4-build.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-build-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
           <figure class="line-img" data-stage="3">
-            <img src="phase4/phase4-test.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-test-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
           <figure class="line-img" data-stage="4">
-            <img src="phase4/phase4-ship.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-ship-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
         </div>
         <div class="line-scrim" aria-hidden="true"></div>
@@ -1625,7 +1627,7 @@ body { cursor: auto; }
 
         <!-- oversized lines counter-drifting at different rates over the scene -->
         <p class="drift drift--a display line-ui" aria-hidden="true">FROM IDEA TO SYSTEM</p>
-        <p class="drift drift--b display line-ui" aria-hidden="true">FROM SYSTEM TO SHIPPING</p>
+        <p class="drift drift--b display line-ui" aria-hidden="true">FROM BUILD TO RELEASE</p>
 
         <!-- live altimeter for the ascent -->
         <div class="line-alt mono line-ui" aria-hidden="true">
@@ -1713,27 +1715,23 @@ body { cursor: auto; }
         <!-- Scrubbed as a frame sequence on a canvas, not as a video: 193
              individual stills drawn one per scroll position. Same technique
              as 001 Vacance — seeking an image is instant, where a video
-             seek is at the mercy of the decoder. Source is the 4K clip in
-             media/source; the 720p set it replaced is kept alongside. -->
+             seek is at the mercy of the decoder. The sequence is extracted
+             from the supplied kling 2.mp4 at 1920x1080 / 30fps and sampled
+             across its full 10-second duration. -->
         <canvas class="vista__img vista__canvas" data-vista-canvas="" aria-hidden="true"></canvas>
         <!-- shown instead under reduced motion / static, where nothing scrubs -->
-        <img class="vista__img vista__still" src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/vista-still.jpg" alt="Snow peaks standing above a sea of cloud">
+        <img class="vista__img vista__still" src="media/vista-kling2-web/f_193.jpg" alt="A product system resolved in a dark field">
         <div class="vista__shade" aria-hidden="true"></div>
         <span class="vista__cross" style="left:16%; top:24%" aria-hidden="true"></span>
         <span class="vista__cross" style="right:14%; bottom:28%" aria-hidden="true"></span>
-        <p class="vista__label mono">THE PRODUCT TAKING SHAPE</p>
-        <!-- Three beats keyed to the flight: camp at dawn, the glacier
-             grind, breaking out above the cloud. Each holds, then clears
-             before the next arrives — never two lines on screen at once. -->
-        <!-- one child each: the box is a centring grid, and a bare text run
-             beside an <em> would become two anonymous grid items stacked in
-             separate rows -->
-        <p class="vista__line display" data-vista="0.07"><span>The first idea</span></p>
-        <p class="vista__line display" data-vista="0.31"><span><span class="vista__l">The system underneath</span><span class="vista__l acc">makes it feel simple.</span></span></p>
+        <p class="vista__label mono">THE WORK IN BETWEEN</p>
+        <!-- Three beats: listening, making sense, and meeting the world.
+             Each holds, then clears before the next arrives. -->
+        <p class="vista__line display" data-vista="0.07"><span>First, we listen.</span></p>
+        <p class="vista__line display" data-vista="0.31"><span>Then, we make sense of it.</span></p>
         <!-- lands inside the freeze: the film has already reached its last
-             frame, so this one arrives line by line over a held view and
-             stays until the section wipes away -->
-        <p class="vista__line display" data-vista="0.80" data-vista-lines="" data-vista-hold=""><span><span class="vista__l">The shipped product</span><span class="vista__l acc">opens the next question.</span></span></p>
+             frame, so this closing line stays until the section wipes away -->
+        <p class="vista__line display" data-vista="0.80" data-vista-hold=""><span>Finally, it meets the world.</span></p>
       </div>
     </section>
 
@@ -1915,7 +1913,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 08 — 17:45 — 2 730 M — THE LOG (evening falls)
          ============================================================ -->
-    <section id="log" class="log sec--dark" data-bg="#0B0E14" data-alt="2730">
+    <section id="log" class="log sec--dark" data-bg="#000000" data-alt="2730">
       <div class="slate mono"><span>◮ PHASE 08 / RELEASES</span><span>(THE LAUNCH LOG)</span><span>RELEASED · LEARNED</span></div>
       <p class="log__note mono" data-reveal="">EVERY BUILD, EVERY OUTCOME. THE EDGE CASES INCLUDED.</p>
 
@@ -1986,7 +1984,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 10 — 20:15 — 1 240 M — CONDITION REPORTS (quiet)
          ============================================================ -->
-    <section class="reports sec--dark" data-bg="#0B0E14" data-alt="1240">
+    <section class="reports sec--dark" data-bg="#000000" data-alt="1240">
       <div class="slate mono"><span>◮ PHASE 10 / SIGNAL</span><span>(BUILD REPORTS)</span><span>IN PROGRESS · LIVE</span></div>
 
       <!-- One board. The top half is the ropes that haven't come back yet;
@@ -2093,7 +2091,7 @@ body { cursor: auto; }
     <!-- ============================================================
          WP 11 — 21:00 — 1 035 M — REFUGE (FAQ + kit)
          ============================================================ -->
-    <section class="refuge sec--dark" data-bg="#0B0E14" data-alt="1035">
+    <section class="refuge sec--dark" data-bg="#000000" data-alt="1035">
       <!-- Full-bleed plate: the hut holds the left third, the valley opens on
            the right and the questions are set into that open air. -->
       <div class="refuge__bg" aria-hidden="true">
@@ -2342,6 +2340,7 @@ function makeFilm({ canvas, count, path }) {
   const ctx = canvas.getContext('2d');
   const imgs = new Array(count).fill(null);
   let current = 0;
+  let position = 0;
 
   function resize() {
     /* the canvas is fixed at viewport size in CSS; match its backing store
@@ -2354,21 +2353,34 @@ function makeFilm({ canvas, count, path }) {
     draw();
   }
 
-  function nearestLoaded(i) {
-    for (let d = 0; d < count; d++) {
-      if (imgs[i - d]) return imgs[i - d];
-      if (imgs[i + d]) return imgs[i + d];
-    }
-    return null;
-  }
-
   function draw() {
-    const img = nearestLoaded(current);
-    if (!img) return;
+    const lower = Math.floor(position);
+    const upper = Math.min(count - 1, lower + 1);
+    const blend = position - lower;
+    /* Only use the two frames the scroll position actually asks for. The
+       old nearest-loaded fallback could jump between distant frames while
+       the progressive preload was still filling in over a network. If the
+       requested frames are not ready, leave the last confirmed canvas frame
+       in place until one of them is available. */
+    const first = imgs[lower];
+    const second = upper === lower ? first : imgs[upper];
+    if (!first && !second) return;
     const cw = canvas.width, ch = canvas.height;
+    const img = first || second;
     const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     const w = img.naturalWidth * s, h = img.naturalHeight * s;
-    ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+    const x = (cw - w) / 2, y = (ch - h) / 2;
+    ctx.clearRect(0, 0, cw, ch);
+    if (first && second && second !== first) {
+      ctx.globalAlpha = 1 - blend;
+      ctx.drawImage(first, x, y, w, h);
+      ctx.globalAlpha = blend;
+      ctx.drawImage(second, x, y, w, h);
+    } else {
+      ctx.globalAlpha = 1;
+      ctx.drawImage(first || second, x, y, w, h);
+    }
+    ctx.globalAlpha = 1;
   }
 
   function load(pass) {
@@ -2400,8 +2412,10 @@ function makeFilm({ canvas, count, path }) {
 
   return {
     seek(t) {                                   /* t is 0..1 along the sequence */
-      const i = Math.round(Math.min(1, Math.max(0, t)) * (count - 1));
-      if (i !== current) { current = i; draw(); }
+      position = Math.min(1, Math.max(0, t)) * (count - 1);
+      const i = Math.round(position);
+      if (i !== current) current = i;
+      draw();
     },
     resize,
   };
@@ -2856,19 +2870,18 @@ function init() {
      maps straight onto currentTime, so the crest happens exactly as
      fast as the reader moves.
 
-     The file is encoded all-intra (every one of its 193 frames is a
-     keyframe), so any seek decodes a single frame instead of walking
-     a GOP from the last keyframe — that is what keeps the scrub
-     smooth. Because seeks are now cheap and exact, the target time is
-     quantised to the frame grid and only issued when the frame index
-     actually changes: one decode per frame, none wasted.
+     The extracted set is a local JPEG sequence, so any seek draws a
+     single already-decoded still instead of asking a video decoder to
+     walk a GOP. The target time is quantised to the frame grid and only
+     issued when the frame index actually changes: one decode per frame,
+     none wasted.
      ------------------------------------------------------------- */
   const vistaCanvas = document.querySelector('[data-vista-canvas]');
   if (vistaCanvas) {
     const film = makeFilm({
       canvas: vistaCanvas,
       count: 193,
-      path: (i) => ASSETS + `vista/f_${String(i + 1).padStart(3, '0')}.jpg`,
+      path: (i) => `media/vista-kling2-web/f_${String(i + 1).padStart(3, '0')}.jpg`,
     });
     const seek = { t: 0 };
     gsap.to(seek, {
