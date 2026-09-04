@@ -533,10 +533,9 @@ white-space: nowrap;
 bottom: auto; top: calc(100% + .5rem);
 left: auto; right: 0; transform: none;
 }
-/* The two lines run in sequence, not together: the first is INK — read
-against the pale dusk sky while the rope is still in the dark — and the
-second is full glacier-white once the light has arrived. The colour
-change is the same idea as the copy. */
+/* The two lines run in sequence, not together: both stay glacier-white
+through the dark-to-light build so the copy remains legible as the scene
+changes underneath it. */
 .drift {
 position: absolute; z-index: 5; white-space: nowrap;
 font-size: clamp(2.4rem, 7vw, 7rem);
@@ -545,7 +544,7 @@ will-change: filter, opacity, transform;
 }
 .drift--a {
 top: 14%; left: 6vw;
-color: #080B10;
+color: var(--glacier);
 text-shadow: 0 0 60px rgba(226,234,244,.28);   /* lifts it off the darker frames */
 }
 .drift--b {
@@ -1569,19 +1568,19 @@ body { cursor: auto; }
              happens in the process imagery itself. -->
         <div class="line-imgs" aria-hidden="true">
           <figure class="line-img">
-            <img src="phase4/phase4-discover.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-discover-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
           <figure class="line-img" data-stage="1">
-            <img src="phase4/phase4-define.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-define-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
           <figure class="line-img" data-stage="2">
-            <img src="phase4/phase4-build.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-build-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
           <figure class="line-img" data-stage="3">
-            <img src="phase4/phase4-test.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-test-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
           <figure class="line-img" data-stage="4">
-            <img src="phase4/phase4-ship.png" alt="" width="1536" height="1024" decoding="async">
+            <img src="phase4/phase4-ship-generated.jpg" alt="" width="1536" height="1024" decoding="async">
           </figure>
         </div>
         <div class="line-scrim" aria-hidden="true"></div>
@@ -1613,7 +1612,7 @@ body { cursor: auto; }
 
         <!-- oversized lines counter-drifting at different rates over the scene -->
         <p class="drift drift--a display line-ui" aria-hidden="true">FROM IDEA TO SYSTEM</p>
-        <p class="drift drift--b display line-ui" aria-hidden="true">FROM SYSTEM TO SHIPPING</p>
+        <p class="drift drift--b display line-ui" aria-hidden="true">FROM BUILD TO RELEASE</p>
 
         <!-- live altimeter for the ascent -->
         <div class="line-alt mono line-ui" aria-hidden="true">
@@ -1701,27 +1700,23 @@ body { cursor: auto; }
         <!-- Scrubbed as a frame sequence on a canvas, not as a video: 193
              individual stills drawn one per scroll position. Same technique
              as 001 Vacance — seeking an image is instant, where a video
-             seek is at the mercy of the decoder. Source is the 4K clip in
-             media/source; the 720p set it replaced is kept alongside. -->
+             seek is at the mercy of the decoder. The sequence is extracted
+             from the supplied kling 2.mp4 at 1920x1080 / 30fps and sampled
+             across its full 10-second duration. -->
         <canvas class="vista__img vista__canvas" data-vista-canvas="" aria-hidden="true"></canvas>
         <!-- shown instead under reduced motion / static, where nothing scrubs -->
-        <img class="vista__img vista__still" src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/vista-still.jpg" alt="Snow peaks standing above a sea of cloud">
+        <img class="vista__img vista__still" src="media/vista-kling2-web/f_193.jpg" alt="A product system resolved in a dark field">
         <div class="vista__shade" aria-hidden="true"></div>
         <span class="vista__cross" style="left:16%; top:24%" aria-hidden="true"></span>
         <span class="vista__cross" style="right:14%; bottom:28%" aria-hidden="true"></span>
-        <p class="vista__label mono">THE PRODUCT TAKING SHAPE</p>
-        <!-- Three beats keyed to the flight: camp at dawn, the glacier
-             grind, breaking out above the cloud. Each holds, then clears
-             before the next arrives — never two lines on screen at once. -->
-        <!-- one child each: the box is a centring grid, and a bare text run
-             beside an <em> would become two anonymous grid items stacked in
-             separate rows -->
-        <p class="vista__line display" data-vista="0.07"><span>The first idea</span></p>
-        <p class="vista__line display" data-vista="0.31"><span><span class="vista__l">The system underneath</span><span class="vista__l acc">makes it feel simple.</span></span></p>
+        <p class="vista__label mono">THE WORK IN BETWEEN</p>
+        <!-- Three beats: listening, making sense, and meeting the world.
+             Each holds, then clears before the next arrives. -->
+        <p class="vista__line display" data-vista="0.07"><span>First, we listen.</span></p>
+        <p class="vista__line display" data-vista="0.31"><span>Then, we make sense of it.</span></p>
         <!-- lands inside the freeze: the film has already reached its last
-             frame, so this one arrives line by line over a held view and
-             stays until the section wipes away -->
-        <p class="vista__line display" data-vista="0.80" data-vista-lines="" data-vista-hold=""><span><span class="vista__l">The shipped product</span><span class="vista__l acc">opens the next question.</span></span></p>
+             frame, so this closing line stays until the section wipes away -->
+        <p class="vista__line display" data-vista="0.80" data-vista-hold=""><span>Finally, it meets the world.</span></p>
       </div>
     </section>
 
@@ -2844,19 +2839,18 @@ function init() {
      maps straight onto currentTime, so the crest happens exactly as
      fast as the reader moves.
 
-     The file is encoded all-intra (every one of its 193 frames is a
-     keyframe), so any seek decodes a single frame instead of walking
-     a GOP from the last keyframe — that is what keeps the scrub
-     smooth. Because seeks are now cheap and exact, the target time is
-     quantised to the frame grid and only issued when the frame index
-     actually changes: one decode per frame, none wasted.
+     The extracted set is a local JPEG sequence, so any seek draws a
+     single already-decoded still instead of asking a video decoder to
+     walk a GOP. The target time is quantised to the frame grid and only
+     issued when the frame index actually changes: one decode per frame,
+     none wasted.
      ------------------------------------------------------------- */
   const vistaCanvas = document.querySelector('[data-vista-canvas]');
   if (vistaCanvas) {
     const film = makeFilm({
       canvas: vistaCanvas,
       count: 193,
-      path: (i) => ASSETS + `vista/f_${String(i + 1).padStart(3, '0')}.jpg`,
+      path: (i) => `media/vista-kling2-web/f_${String(i + 1).padStart(3, '0')}.jpg`,
     });
     const seek = { t: 0 };
     gsap.to(seek, {
