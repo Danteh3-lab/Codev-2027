@@ -583,17 +583,14 @@ white-space: nowrap; transition: background .45s var(--ease), color .45s var(--e
 .route { grid-column: 1 / span 7; margin-bottom: clamp(2.5rem, 7vh, 5rem); }
 .route--offset { grid-column: 6 / span 7; margin-top: clamp(-2rem, -4vh, -1rem); }
 .route__scene {
-position: relative; aspect-ratio: 8 / 5; overflow: clip; border-radius: 2px;
+position: relative; overflow: clip; border-radius: 2px;
 background: #DFE3E0;
 }
-/* The plate is oversized with slack above and below, so the photo can
-counter-scroll inside its frame — it holds still in space while the card
-travels up over it. The slack (15% each way) is what the scrub spends;
-it must exceed the tween's range or an edge would show. */
+/* Project screenshots keep their native proportions so the full interface
+remains visible instead of being cropped into the old photo frame. */
 .route__scene img {
-position: absolute; left: 0; width: 100%;
-top: -15%; height: 130%;
-object-fit: cover; will-change: transform;
+display: block; width: 100%; height: auto;
+object-fit: contain;
 }
 .route__info { display: grid; grid-template-columns: auto 1fr auto; gap: .35rem 1.2rem; padding-top: 1rem; align-items: baseline; }
 .route__n { color: var(--accent); }
@@ -1642,7 +1639,7 @@ body { cursor: auto; }
 
       <div class="routes">
         <article class="route" data-reveal="">
-          <div class="route__scene reveal-img" data-parallax="" data-speed="0.96">
+          <div class="route__scene reveal-img">
             <img src="phase5/shoprunner-order-management-blurred.png" alt="Shoprunner.dev order management dashboard showing order tracking and fulfillment status" width="1728" height="910" decoding="async">
           </div>
           <div class="route__info">
@@ -1654,7 +1651,7 @@ body { cursor: auto; }
         </article>
 
         <article class="route route--offset" data-reveal="">
-          <div class="route__scene reveal-img" data-parallax="" data-speed="1.07">
+          <div class="route__scene reveal-img">
             <img src="phase5/architect-den-haag.png" alt="Architect Den Haag website homepage showing a contemporary house and project navigation" width="1857" height="973" decoding="async">
           </div>
           <div class="route__info">
@@ -1666,7 +1663,7 @@ body { cursor: auto; }
         </article>
 
         <article class="route" data-reveal="">
-          <div class="route__scene reveal-img" data-parallax="" data-speed="0.96">
+          <div class="route__scene reveal-img">
             <img src="phase5/haven-interior-design.png" alt="Haven interior design studio website homepage with a modern house and pool" width="1877" height="966" decoding="async">
           </div>
           <div class="route__info">
@@ -1678,7 +1675,7 @@ body { cursor: auto; }
         </article>
 
         <article class="route route--offset" data-reveal="">
-          <div class="route__scene reveal-img" data-parallax="" data-speed="1.07">
+          <div class="route__scene reveal-img">
             <img src="phase5/northsea-yachts.png" alt="Northsea yachts website homepage featuring a luxury yacht and premium navigation" width="1863" height="888" decoding="async">
           </div>
           <div class="route__info">
@@ -2774,13 +2771,14 @@ function init() {
        page life, so it gets the clip wipe only — the scale settle here ends
        in clearProps:'transform', which would wipe the parallax with it. */
     const counterScrolls = frame.hasAttribute('data-parallax');
+    const keepsNativeSize = frame.classList.contains('route__scene');
     gsap.set(frame, { clipPath: 'inset(100% 0% 0% 0%)' });
-    if (!counterScrolls) gsap.set(img, { scale: 1.15 });
+    if (!counterScrolls && !keepsNativeSize) gsap.set(img, { scale: 1.15 });
     ScrollTrigger.create({
       trigger: frame, start: 'top 84%', once: true,
       onEnter: () => {
         gsap.to(frame, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: EASE });
-        if (!counterScrolls) {
+        if (!counterScrolls && !keepsNativeSize) {
           gsap.to(img, { scale: 1, duration: 1.6, ease: EASE, clearProps: 'transform' });
         }
       },
@@ -2788,10 +2786,8 @@ function init() {
   });
 
   /* -------------------------------------------------------------
-     5c-ii) Route plates — the photo holds still while the card
-     travels. The image sits oversized in its frame (see CSS) and is
-     scrubbed against the scroll, so it reads as fixed in space
-     behind a window that slides up over it. Replaces the hover zoom.
+     5c-ii) Optional image parallax — project screenshots intentionally
+     stay at native size so their full interface remains readable.
      ------------------------------------------------------------- */
   gsap.utils.toArray('[data-parallax]').forEach((frame) => {
     gsap.fromTo(frame.querySelector('img'),
