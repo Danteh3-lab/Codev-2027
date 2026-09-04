@@ -484,16 +484,31 @@ padding: clamp(1rem, 2.2vw, 1.5rem);
 WP 04 — THE LINE (pinned signature)
 ============================================================ */
 .line-sec { padding: 0; }
-.line-stage { position: relative; height: 100svh; overflow: clip; }
-/* the ascent's photography: stacked full-bleed stages. Each one waits off
-the right edge and is slid in by the pin timeline, then stays put. */
-.line-imgs { position: absolute; inset: 0; overflow: clip; background: var(--ink); }
-/* each frame clips its OWN photo: the parallax pre-positions the image
-left of centre and oversized, which would otherwise paint outside a
-frame still waiting off-screen and show as a strip at the right edge */
-.line-img { position: absolute; inset: 0; margin: 0; overflow: clip; }
-.line-img img { width: 100%; height: 100%; object-fit: cover; display: block; will-change: transform; }
-.line-img[data-stage] { transform: translateX(100%); will-change: transform; }
+.line-stage { position: relative; height: 100svh; overflow: hidden; }
+/* the process imagery is a stack of full-bleed stages. Each incoming stage
+reveals through its own mask, which keeps the browser compositor from having
+to paint several nested transforms and prevents horizontal frame tearing. */
+.line-imgs {
+position: absolute; inset: 0; overflow: hidden; isolation: isolate;
+background: var(--ink);
+}
+.line-img {
+position: absolute; inset: 0; margin: 0; overflow: hidden;
+backface-visibility: hidden;
+}
+.line-img:nth-child(1) { z-index: 1; }
+.line-img:nth-child(2) { z-index: 2; }
+.line-img:nth-child(3) { z-index: 3; }
+.line-img:nth-child(4) { z-index: 4; }
+.line-img:nth-child(5) { z-index: 5; }
+.line-img img {
+width: 100%; height: 100%; object-fit: cover; display: block;
+backface-visibility: hidden;
+}
+.line-img[data-stage] {
+clip-path: inset(0 0 0 100%);
+will-change: clip-path;
+}
 /* keeps the instruments legible on the bright summit frames */
 .line-scrim {
 position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -1260,7 +1275,7 @@ body { cursor: auto; }
 .is-static *, .is-static *::before, .is-static *::after { animation: none !important; transition: none !important; }
 .is-static .loader, .is-static .cursor, .is-static .hud, .is-static .rail { display: none; }
 .is-static body, .is-static { cursor: auto; }
-.is-static .line-img[data-stage] { transform: none; }   /* summit frame on top */
+.is-static .line-img[data-stage] { clip-path: none; }   /* final frame on top */
 /* the roster is JS-lit; statically it reads as a plain list, first guide shown */
 /* no scroll to break the day: show the lit frame */
 .is-static .hero__photo--day { opacity: 1; }
@@ -2964,25 +2979,16 @@ function init() {
     .to(driftA, { autoAlpha: 0, filter: 'blur(20px)', ease: 'none', duration: 0.12 }, 0.40)
     .to(driftB, { autoAlpha: 1, filter: 'blur(0px)', ease: 'none', duration: 0.18 }, 0.52);
 
-  /* each stage slides in from the right and lands exactly on its waypoint.
-     The offset is re-declared through GSAP: the CSS `translateX(100%)`
-     fallback parses into a pixel `x`, which would fight `xPercent` and
-     leave the frames stranded off-screen. */
-  const SLIDE = 0.09;                                   // travel time of a stage
+  /* each stage reveals from the right and lands exactly on its waypoint.
+     A clip reveal keeps the stack in one stable paint plane, avoiding the
+     horizontal tearing that nested frame/photo transforms can cause. */
+  const SLIDE = 0.09;                                   // reveal time of a stage
   const stages = gsap.utils.toArray('.line-img[data-stage]');
-  gsap.set(stages, { xPercent: 100, x: 0 });
+  gsap.set(stages, { clipPath: 'inset(0 0 0 100%)' });
   stages.forEach((frame, i) => {
     const at = Math.max(0, AT[i] - SLIDE);              // lands exactly on its dot
-    const photo = frame.querySelector('img');
-    /* the frame carries the photo in, but the photo trails behind it and
-       catches up — the depth cue that stops the slide reading as one flat
-       card. It rides in slightly oversized so the lag never exposes an
-       edge, settling to 1 as it lands. */
     lineTl
-      .to(frame, { xPercent: 0, ease: 'none', duration: SLIDE }, at)
-      .fromTo(photo,
-        { xPercent: -16, scale: 1.18 },
-        { xPercent: 0, scale: 1, ease: 'none', duration: SLIDE }, at);
+      .to(frame, { clipPath: 'inset(0 0 0 0)', ease: 'none', duration: SLIDE }, at);
   });
 
   /* waypoints pop at the measured moment the line touches them */
