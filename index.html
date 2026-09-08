@@ -1716,8 +1716,8 @@ body { cursor: auto; }
              individual stills drawn one per scroll position. Same technique
              as 001 Vacance — seeking an image is instant, where a video
              seek is at the mercy of the decoder. The sequence is extracted
-             from the supplied kling 2.mp4 at 1920x1080 / 30fps and sampled
-             across its full 10-second duration. -->
+             from sequence2.mp4, cropped to the canvas's 1920x1080 frame
+             size, and sampled across the supplied 20-second clip. -->
         <canvas class="vista__img vista__canvas" data-vista-canvas="" aria-hidden="true"></canvas>
         <!-- shown instead under reduced motion / static, where nothing scrubs -->
         <img class="vista__img vista__still" src="media/vista-kling2-web/f_193.jpg" alt="A product system resolved in a dark field">
@@ -2332,8 +2332,8 @@ window.addEventListener('DOMContentLoaded', () => {
    A scrubbed film sequence on a canvas — the same approach as
    001 Vacance. Frames are drawn cover-fit and preloaded coarse-to-
    fine (every 8th → 2nd → all) so scrubbing works almost at once,
-   with the nearest already-loaded frame standing in until the exact
-   one arrives. Seeking a decoded image is instant; seeking a video
+   with the last confirmed frame holding until the exact requested frame
+   arrives. Seeking a decoded image is instant; seeking a video
    is at the mercy of the decoder, which is what makes this smooth.
    --------------------------------------------------------------- */
 function makeFilm({ canvas, count, path }) {
@@ -2341,6 +2341,8 @@ function makeFilm({ canvas, count, path }) {
   const imgs = new Array(count).fill(null);
   let current = 0;
   let position = 0;
+  let renderedIndex = 0;
+  let drawQueued = false;
 
   function resize() {
     /* the canvas is fixed at viewport size in CSS; match its backing store
@@ -2354,33 +2356,29 @@ function makeFilm({ canvas, count, path }) {
   }
 
   function draw() {
-    const lower = Math.floor(position);
-    const upper = Math.min(count - 1, lower + 1);
-    const blend = position - lower;
-    /* Only use the two frames the scroll position actually asks for. The
-       old nearest-loaded fallback could jump between distant frames while
-       the progressive preload was still filling in over a network. If the
-       requested frames are not ready, leave the last confirmed canvas frame
-       in place until one of them is available. */
-    const first = imgs[lower];
-    const second = upper === lower ? first : imgs[upper];
-    if (!first && !second) return;
+    const target = Math.round(position);
+    /* Draw one decoded frame at a time. Crossfading two asynchronously
+       loaded frames made fast scrubbing flash between the requested frame
+       and whichever neighbour happened to finish decoding first. */
+    const img = imgs[target] || imgs[renderedIndex];
+    if (!img) return;
     const cw = canvas.width, ch = canvas.height;
-    const img = first || second;
     const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     const w = img.naturalWidth * s, h = img.naturalHeight * s;
     const x = (cw - w) / 2, y = (ch - h) / 2;
-    ctx.clearRect(0, 0, cw, ch);
-    if (first && second && second !== first) {
-      ctx.globalAlpha = 1 - blend;
-      ctx.drawImage(first, x, y, w, h);
-      ctx.globalAlpha = blend;
-      ctx.drawImage(second, x, y, w, h);
-    } else {
-      ctx.globalAlpha = 1;
-      ctx.drawImage(first || second, x, y, w, h);
-    }
     ctx.globalAlpha = 1;
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.drawImage(img, x, y, w, h);
+    if (imgs[target]) renderedIndex = target;
+  }
+
+  function scheduleDraw() {
+    if (drawQueued) return;
+    drawQueued = true;
+    requestAnimationFrame(() => {
+      drawQueued = false;
+      draw();
+    });
   }
 
   function load(pass) {
@@ -2393,7 +2391,7 @@ function makeFilm({ canvas, count, path }) {
       const im = new Image();
       im.onload = () => {
         imgs[i] = im;
-        if (Math.abs(i - current) < step * 2) draw();
+        if (Math.abs(i - current) < step * 2) scheduleDraw();
         if (--pending === 0) load(pass + 1);
       };
       im.onerror = () => { if (--pending === 0) load(pass + 1); };
@@ -2414,8 +2412,10 @@ function makeFilm({ canvas, count, path }) {
     seek(t) {                                   /* t is 0..1 along the sequence */
       position = Math.min(1, Math.max(0, t)) * (count - 1);
       const i = Math.round(position);
-      if (i !== current) current = i;
-      draw();
+      if (i !== current) {
+        current = i;
+        scheduleDraw();
+      }
     },
     resize,
   };
