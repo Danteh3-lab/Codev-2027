@@ -665,6 +665,20 @@ transition: color .45s var(--ease);
 }
 .disc.is-live .disc__name { color: var(--accent); }
 .disc__desc { max-width: 42ch; color: rgba(18,22,29,.66); }
+.disc--coming-soon,
+.disc--coming-soon.is-live { opacity: .38; }
+.disc--coming-soon .disc__status {
+font-size: .72rem; letter-spacing: .12em; color: rgba(18,22,29,.55);
+margin-bottom: .45rem;
+}
+.disc--coming-soon .disc__name,
+.disc--coming-soon.is-live .disc__name { color: rgba(18,22,29,.62); }
+.disc--coming-soon .disc__media img,
+.disc--coming-soon.is-live .disc__media img { filter: grayscale(1) contrast(.9); }
+.disc--coming-soon:hover .disc__media img { transform: none; }
+.disc--coming-soon .disc__dot,
+.disc--coming-soon.is-live .disc__dot { scale: 0; }
+.disc--coming-soon .disc__link { border-bottom-style: dashed; cursor: default; }
 /* the rate and the way in — fills the right of the row and gives each
 discipline somewhere to go, without duplicating the tariff board */
 .disc__offer { text-align: right; white-space: nowrap; }
@@ -760,6 +774,10 @@ padding: .3rem .55rem; letter-spacing: .1em;
 }
 .board__head { margin-bottom: 1.6rem; }
 .board__code { color: var(--accent); margin-bottom: .9rem; }
+.board__status {
+font-size: .68rem; letter-spacing: .14em; color: rgba(18,22,29,.48);
+margin: 0 0 .55rem;
+}
 .board__name {
 font-size: clamp(1.5rem, 1rem + 1.6vw, 2.3rem);
 text-transform: none; font-stretch: 74%; margin-bottom: .5rem;
@@ -799,6 +817,22 @@ margin-bottom: 1.8rem;
 .board--flag .board__terms { border-color: rgba(233,237,242,.2); }
 .board--flag .board__terms dt { color: rgba(233,237,242,.42); }
 .board--flag .board__terms dd { color: rgba(233,237,242,.9); }
+.board--coming-soon,
+.board--coming-soon.is-live {
+opacity: .5 !important;
+filter: grayscale(1);
+background: #cdd1ce;
+border-color: rgba(18,22,29,.2);
+}
+.board--coming-soon .board__status {
+font-weight: 700; color: rgba(18,22,29,.72); letter-spacing: .16em;
+}
+.board--coming-soon .board__name,
+.board--coming-soon.is-live .board__name { color: rgba(18,22,29,.62); }
+.board--coming-soon .board__cta {
+border-bottom-style: dashed; cursor: default; pointer-events: none;
+}
+.board--coming-soon .board__cta::after { display: none; }
 @media (max-width: 900px) {
 .tariff__boards { grid-template-columns: 1fr; }
 .board:nth-child(2), .board:nth-child(3) { margin-top: 0; }
@@ -1128,7 +1162,7 @@ padding: .28rem .55rem; border: 1px solid currentColor; border-radius: 99px;
 .bulletin__note { grid-column: 1 / -1; }
 }
 /* ============================================================
-WP 11 — REFUGE
+WP 08 — REFUGE
 ============================================================ */
 /* Full-bleed plate. The photograph runs edge to edge behind the whole
 section; a horizontal scrim buys legibility on the right without
@@ -1360,7 +1394,7 @@ body { cursor: auto; }
       <a href="#line">PROCESS <sup>04</sup></a>
       <a href="#book">WORK <sup>05</sup></a>
       <a href="#tariff">SERVICES <sup>07</sup></a>
-      <a href="#contact">CONTACT <sup>12</sup></a>
+      <a href="#contact">CONTACT <sup>09</sup></a>
     </nav>
   </header>
 
@@ -1745,7 +1779,7 @@ body { cursor: auto; }
         <p class="disc__no mono"><span class="disc__dot" aria-hidden="true"></span>01 <em>/ WS</em></p>
         <p class="disc__spec mono">STRATEGY → LAUNCH<br>WEB · RESPONSIVE · CMS</p>
         <figure class="disc__media reveal-img" aria-hidden="true">
-          <img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/discipline-guided-ascents-v1.jpg" alt="" width="1536" height="1024" decoding="async">
+          <img src="phase6/phase6-websites.png" alt="" width="1536" height="1024" decoding="async">
         </figure>
         <div class="disc__text">
           <h3 class="disc__name display">WEBSITES</h3>
@@ -1761,7 +1795,7 @@ body { cursor: auto; }
         <p class="disc__no mono"><span class="disc__dot" aria-hidden="true"></span>02 <em>/ WA</em></p>
         <p class="disc__spec mono">DISCOVERY → SCALE<br>WEB APP · WORKFLOWS</p>
         <figure class="disc__media reveal-img" aria-hidden="true">
-          <img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/discipline-alpine-courses-v1.jpg" alt="" width="1536" height="1024" decoding="async">
+          <img src="phase6/phase6-web-apps.png" alt="" width="1536" height="1024" decoding="async">
         </figure>
         <div class="disc__text">
           <h3 class="disc__name display">WEB APPS</h3>
@@ -1773,20 +1807,21 @@ body { cursor: auto; }
           <a class="disc__link mono" href="#tariff">VIEW WEB APPS <span aria-hidden="true">↗</span></a>
         </div><!-- /disc__offer -->
       </div><!-- /disc -->
-      <div class="disc" data-disc="">
+      <div class="disc disc--coming-soon" data-disc="">
         <p class="disc__no mono"><span class="disc__dot" aria-hidden="true"></span>03 <em>/ MA</em></p>
         <p class="disc__spec mono">ROADMAP → RELEASE<br>IOS · ANDROID · CROSS-PLATFORM</p>
         <figure class="disc__media reveal-img" aria-hidden="true">
-          <img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/discipline-expeditions-v1.jpg" alt="" width="1536" height="1024" decoding="async">
+          <img src="phase6/phase6-mobile-apps.png" alt="" width="1536" height="1024" decoding="async">
         </figure>
         <div class="disc__text">
-          <h3 class="disc__name display">MOBILE APPS</h3>
+          <p class="disc__status mono">MOBILE APPS</p>
+          <h3 class="disc__name display">COMING SOON</h3>
           <p class="disc__desc">Focused mobile products with the right data model, the right handoff, and no unnecessary screen.</p>
         </div>
         <div class="disc__offer">
-          <p class="disc__from mono">PLANNED</p>
+          <p class="disc__from mono">COMING SOON</p>
           <p class="disc__price display">SCOPE<span class="disc__unit mono"> / AFTER DISCOVERY</span></p>
-          <a class="disc__link mono" href="#contact">START A CONVERSATION <span aria-hidden="true">↗</span></a>
+          <span class="disc__link mono">NOT AVAILABLE YET</span>
         </div><!-- /disc__offer -->
       </div><!-- /disc -->
     </section>
@@ -1795,79 +1830,82 @@ body { cursor: auto; }
          WP 07 — 14:30 — 3 100 M — TARIFF (the posted rate board)
          ============================================================ -->
     <section id="tariff" class="tariff sec--light" data-bg="#F2F4F1" data-alt="3100">
-      <div class="slate mono"><span>◮ PHASE 07 / ENGAGEMENTS</span><span>(SERVICES)</span><span>DISCOVERY → LAUNCH</span></div>
+      <div class="slate mono"><span>◮ PHASE 07 / WAYS TO WORK TOGETHER</span><span>(HOW WE HELP)</span><span>DISCOVERY → LAUNCH</span></div>
 
       <div class="tariff__boards">
-        <article class="board" data-board="">
+        <article class="board board--coming-soon" data-board="">
           <header class="board__head">
             <p class="board__code mono">E — 01</p>
-            <h3 class="board__name display">Focused Build</h3>
-            <p class="board__blurb">A defined product, a short runway, and a clear release at the other end.</p>
+            <p class="board__status mono">COMING SOON</p>
+            <h3 class="board__name display">Launch</h3>
+            <p class="board__blurb">You have a clear idea. We turn it into a polished website or product and get it ready to launch.</p>
           </header>
 
-          <p class="board__price display">FROM DISCOVERY<span class="board__unit mono"> / PROJECT</span></p>
-          <p class="board__per mono">4 – 8 WEEKS · SMALL TEAM</p>
+          <p class="board__price display">PROJECT BUILD<span class="board__unit mono"> / CLEAR SCOPE</span></p>
+          <p class="board__per mono">4 – 8 WEEKS · ONE CLEAR GOAL</p>
 
-          <p class="board__label mono">WHAT'S INCLUDED</p>
+          <p class="board__label mono">WHAT YOU GET</p>
           <ul class="board__list mono">
-            <li>Working brief and delivery map</li>
-            <li>Interface direction before build</li>
-            <li>Production-ready frontend</li>
-            <li>Handoff that explains the system</li>
+            <li>A clear plan before we start</li>
+            <li>A design direction you can approve</li>
+            <li>A working website or product</li>
+            <li>A handoff your team can use</li>
           </ul>
 
           <dl class="board__terms mono">
             <div><dt>START</dt><dd>AFTER ALIGNMENT</dd></div>
-            <div><dt>TEAM</dt><dd>2 – 4</dd></div>
-            <div><dt>CADENCE</dt><dd>WEEKLY</dd></div>
+            <div><dt>TEAM</dt><dd>SMALL TEAM</dd></div>
+            <div><dt>UPDATES</dt><dd>WEEKLY</dd></div>
           </dl>
 
-          <a class="cta mono" data-magnetic="" href="#contact">START A BUILD <span aria-hidden="true">↗</span></a>
+          <span class="cta board__cta mono">COMING SOON</span>
         </article>
 
         <article class="board board--flag" data-board="">
           <p class="board__flagtag mono">MOST COMMON</p>
           <header class="board__head">
             <p class="board__code mono">E — 02</p>
-            <h3 class="board__name display">Product Partnership</h3>
-            <p class="board__blurb">The right team around the right problem, from first sketch through the release that proves it.</p>
+            <h3 class="board__name display">Growth</h3>
+            <p class="board__blurb">You need more than a one-off build. We work alongside you from the first idea to the release.</p>
           </header>
 
-          <p class="board__price display">SCOPED TO THE PRODUCT</p>
-          <p class="board__per mono">8 – 16 WEEKS · EMBEDDED</p>
+          <p class="board__price display">PRODUCT BUILD<span class="board__unit mono"> / TAILORED SCOPE</span></p>
+          <p class="board__per mono">8 – 16 WEEKS · FULL PRODUCT TEAM</p>
 
-          <p class="board__label mono">WHAT'S INCLUDED</p>
+          <p class="board__label mono">WHAT YOU GET</p>
           <ul class="board__list mono">
-            <li>Product and technical direction</li>
-            <li>Design system that scales with the product</li>
-            <li>Web, mobile, or custom software delivery</li>
-            <li>QA, instrumentation, and launch support</li>
-            <li>Decisions documented as we go</li>
+            <li>Product direction for the big decisions</li>
+            <li>A design system that grows with you</li>
+            <li>Website, app, or custom software delivery</li>
+            <li>Testing and launch support</li>
+            <li>Clear progress from week to week</li>
           </ul>
 
           <dl class="board__terms mono">
             <div><dt>START</dt><dd>AFTER ALIGNMENT</dd></div>
-            <div><dt>TEAM</dt><dd>2 – 5</dd></div>
-            <div><dt>CADENCE</dt><dd>BIWEEKLY</dd></div>
+            <div><dt>TEAM</dt><dd>DEDICATED</dd></div>
+            <div><dt>UPDATES</dt><dd>WEEKLY</dd></div>
           </dl>
 
-          <a class="cta mono" data-magnetic="" href="#contact">PLAN THE WORK <span aria-hidden="true">↗</span></a>
+          <a class="cta mono" data-magnetic="" href="#contact">BUILD WITH US <span aria-hidden="true">↗</span></a>
         </article>
 
-        <article class="board" data-board="">
+        <article class="board board--coming-soon" data-board="">
           <header class="board__head">
             <p class="board__code mono">E — 03</p>
-            <h3 class="board__name display">Systems &amp; Support</h3>
-            <p class="board__blurb">The software underneath: integrations, APIs, data flows, maintenance, and the next version.</p>
+            <p class="board__status mono">COMING SOON</p>
+            <h3 class="board__name display">Enterprise</h3>
+            <p class="board__blurb">For established teams that need a dependable partner to improve, connect, and support their software over time.</p>
           </header>
 
-          <p class="board__price display">ON RETAINER<span class="board__unit mono"> / PER MONTH</span></p>
-          <p class="board__per mono">ONGOING · RIGHT-SIZED</p>
+          <p class="board__price display">MONTHLY SUPPORT<span class="board__unit mono"> / FLEXIBLE SCOPE</span></p>
+          <p class="board__per mono">ONGOING · EXISTING SOFTWARE</p>
 
-          <p class="board__label mono">WHAT'S INCLUDED</p>
+          <p class="board__label mono">WHAT YOU GET</p>
           <ul class="board__list mono">
-            <li>Architecture review and technical roadmap</li>
-            <li>API and integration work</li>
+            <li>A review of what you have today</li>
+            <li>Improvements people can feel</li>
+            <li>Connections between your tools</li>
             <li>Performance and reliability checks</li>
             <li>A partner for the next release</li>
           </ul>
@@ -1875,10 +1913,10 @@ body { cursor: auto; }
           <dl class="board__terms mono">
             <div><dt>NOTICE</dt><dd>30 DAYS</dd></div>
             <div><dt>ACCESS</dt><dd>SHARED</dd></div>
-            <div><dt>FOCUS</dt><dd>ONE SYSTEM</dd></div>
+            <div><dt>FOCUS</dt><dd>ONE PRIORITY</dd></div>
           </dl>
 
-          <a class="cta mono" data-magnetic="" href="#contact">TALK SYSTEMS <span aria-hidden="true">↗</span></a>
+          <span class="cta board__cta mono">COMING SOON</span>
         </article>
       </div>
     </section>
@@ -1891,7 +1929,7 @@ body { cursor: auto; }
            to zero height at the bottom edge and unclips upward on scroll,
            so the way down arrives under the line that announces it. -->
       <div class="whiteout__bg" aria-hidden="true">
-        <img class="whiteout__img" src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/turnaround-descent.jpg" alt="" decoding="async">
+        <img class="whiteout__img" src="phase8/ship-moment-launch.png" alt="A finished software product open on a laptop in a calm studio workspace" width="1536" height="1024" decoding="async">
         <div class="whiteout__veil"></div>
       </div>
 
@@ -1901,205 +1939,28 @@ body { cursor: auto; }
            descending, and every altitude after it counts down. -->
       <div class="whiteout__inner">
         <p class="whiteout__tag mono">(THE LAUNCH) — 13:00</p>
-        <p class="whiteout__line display" data-whiteout=""><em class="acc">Shipping</em> is the other half.</p>
+        <p class="whiteout__line display" data-whiteout=""><em class="acc">Your product,</em> ready for the real world.</p>
         <dl class="whiteout__stats mono">
-          <div><dt>HIGH POINT</dt><dd>LAUNCH READY</dd></div>
-          <div><dt>STILL TO BUILD</dt><dd>NEXT RELEASE</dd></div>
-          <div><dt>ROOM TO GROW</dt><dd>ALWAYS</dd></div>
+          <div><dt>WHAT YOU GET</dt><dd>A PRODUCT READY TO USE</dd></div>
+          <div><dt>NEXT STEPS</dt><dd>IMPROVE AND GROW</dd></div>
+          <div><dt>BUILT FOR</dt><dd>WHAT'S AHEAD</dd></div>
         </dl>
       </div>
     </section>
 
-    <!-- ============================================================
-         WP 08 — 17:45 — 2 730 M — THE LOG (evening falls)
-         ============================================================ -->
-    <section id="log" class="log sec--dark" data-bg="#000000" data-alt="2730">
-      <div class="slate mono"><span>◮ PHASE 08 / RELEASES</span><span>(THE LAUNCH LOG)</span><span>RELEASED · LEARNED</span></div>
-      <p class="log__note mono" data-reveal="">EVERY BUILD, EVERY OUTCOME. THE EDGE CASES INCLUDED.</p>
-
-      <div class="log__table">
-        <div class="row" data-reveal=""><span class="row__y mono">2026</span><span class="row__r display">MERIDIAN</span><span class="row__g mono">WEBSITE</span><span class="row__o mono">LAUNCHED — NEW SYSTEM</span><span class="row__thumbs" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-mont-blanc-gouter-01-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-mont-blanc-gouter-02-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></span></div>
-        <div class="row" data-reveal=""><span class="row__y mono">2026</span><span class="row__r display">COMMON THREAD</span><span class="row__g mono">WEB APP</span><span class="row__o mono row__o--ret">ITERATING — PILOT LIVE</span><span class="row__thumbs" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-dent-du-geant-01-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-dent-du-geant-02-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></span></div>
-        <div class="row" data-reveal=""><span class="row__y mono">2025</span><span class="row__r display">FIELDNOTE</span><span class="row__g mono">MOBILE</span><span class="row__o mono">LAUNCHED — V1.0</span><span class="row__thumbs" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-matterhorn-hornli-01-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-matterhorn-hornli-02-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></span></div>
-        <div class="row" data-reveal=""><span class="row__y mono">2025</span><span class="row__r display">ORBITAL</span><span class="row__g mono">PLATFORM</span><span class="row__o mono">SCALED — NEW MARKETS</span><span class="row__thumbs" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-eiger-mittellegi-01-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-eiger-mittellegi-02-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></span></div>
-        <div class="row" data-reveal=""><span class="row__y mono">2024</span><span class="row__r display">VESSEL</span><span class="row__g mono">WEBSITE</span><span class="row__o mono">LAUNCHED — BRAND + PRODUCT</span><span class="row__thumbs" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-gran-paradiso-01-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-gran-paradiso-02-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></span></div>
-        <div class="row" data-reveal=""><span class="row__y mono">2024</span><span class="row__r display">NORTHSTAR</span><span class="row__g mono">MOBILE</span><span class="row__o mono row__o--ret">PAUSED — RIGHT DECISION</span><span class="row__thumbs" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-mont-blanc-trois-monts-01-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-mont-blanc-trois-monts-02-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></span></div>
-        <div class="row" data-reveal=""><span class="row__y mono">2020</span><span class="row__r display">LEDGER</span><span class="row__g mono">API</span><span class="row__o mono">MAINTAINED — STILL RUNNING</span><span class="row__thumbs" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-weisshorn-east-ridge-01-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-weisshorn-east-ridge-02-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></span></div>
-        <div class="row" data-reveal=""><span class="row__y mono">2019</span><span class="row__r display">GROUNDWORK</span><span class="row__g mono">CUSTOM SOFTWARE</span><span class="row__o mono">RETIRED — NEW SYSTEM</span><span class="row__thumbs" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-grandes-jorasses-walker-01-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/log-grandes-jorasses-walker-02-v1.jpg" alt="" width="960" height="640" loading="lazy" decoding="async"></span></div>
-      </div>
-    </section>
 
     <!-- ============================================================
-         WP 09 — 19:30 — 1 890 M — SUMMIT REGISTER (one voice)
-         ============================================================ -->
-    <section class="register sec--light" data-bg="#F2F4F1" data-alt="1890">
-      <div class="slate mono"><span>◮ PHASE 09 / PROOF</span><span>(CASE STUDY)</span><span>RESULT / RELEASE</span></div>
-
-      <!-- Light on purpose: the descent was running four dark sections to the
-           footer. This is also the one thing you physically sign at the top,
-           so the entry block is set as the register page it comes from. -->
-      <div class="register__grid">
-        <div class="register__col">
-          <blockquote class="register__quote display" data-words="">
-            “The first version finally gave the team something real to react to. The launch was not the finish line — it was the first honest conversation with the product.”
-          </blockquote>
-
-          <!-- The entry facts now sit under the voice, read as one ledger
-               strip rather than a card competing with the photograph. -->
-          <div class="register__foot" data-reveal="">
-            <div class="register__sig">
-              <p class="register__siglabel mono">SIGNED AFTER LAUNCH</p>
-              <p class="register__name display">A. Moretti</p>
-            </div>
-            <dl class="register__meta mono">
-              <div><dt>CASE</dt><dd>0412 — RELEASE 12</dd></div>
-              <div><dt>PAGE</dt><dd>112</dd></div>
-              <div><dt>DATE</dt><dd>09 SEP 2024</dd></div>
-              <div><dt>PROJECT</dt><dd>COMMON THREAD</dd></div>
-              <div><dt>TEAM</dt><dd>CODEV</dd></div>
-              <div><dt>OUTCOME</dt><dd>SHIPPED + LEARNED</dd></div>
-            </dl>
-          </div>
-        </div>
-
-        <!-- Postcard: the print that came back with the entry. Sits off-axis,
-             straightens under the cursor. -->
-        <figure class="register__card" data-reveal="">
-          <div class="register__drift">
-          <div class="register__print">
-            <div class="register__photo">
-              <img src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/register-summit.jpg" alt="Two roped climbers standing at a summit marker above a sea of cloud." loading="lazy" decoding="async">
-            </div>
-            <figcaption class="register__cap mono">
-              <span>COMMON THREAD — V1.0</span>
-              <span>LIVE</span>
-            </figcaption>
-          </div>
-          </div>
-          <span class="register__stamp mono">CASE NOTE 0412</span>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         WP 10 — 20:15 — 1 240 M — CONDITION REPORTS (quiet)
-         ============================================================ -->
-    <section class="reports sec--dark" data-bg="#000000" data-alt="1240">
-      <div class="slate mono"><span>◮ PHASE 10 / SIGNAL</span><span>(BUILD REPORTS)</span><span>IN PROGRESS · LIVE</span></div>
-
-      <!-- One board. The top half is the ropes that haven't come back yet;
-           below the rule, the ones that have. Same table, same columns —
-           "now" simply fades into "lately" as you read down. -->
-      <div class="live">
-        <div class="live__head">
-          <p class="live__title mono">ON THE BUILD NOW <span class="live__count">— 4 PRODUCTS</span></p>
-          <p class="live__ping mono"><span class="live__dot" aria-hidden="true"></span>LAST UPDATE 20:14</p>
-        </div>
-
-        <div class="live__cols mono" aria-hidden="true">
-          <span>PROJECT</span><span>LEAD</span><span>TEAM</span><span>PROGRESS</span><span>STATE</span><span>STAGE</span>
-        </div>
-
-        <div class="live__row" data-reveal="" data-p=".62">
-          <span class="live__route display">Meridian</span>
-          <span class="live__guide mono">D. LEAD</span>
-          <span class="live__party mono">×2</span>
-          <span class="track" aria-hidden="true"><span class="track__fill"></span><span class="track__pin"></span></span>
-          <span class="live__state mono is-push">LAUNCH PREP</span>
-          <span class="live__alt mono">04 LAUNCH</span>
-          <span class="live__note">Content pass complete. Accessibility and performance are next.</span>
-        </div>
-
-        <div class="live__row" data-reveal="" data-p=".80">
-          <span class="live__route display">Common Thread</span>
-          <span class="live__guide mono">P. DESIGNER</span>
-          <span class="live__party mono">×1</span>
-          <span class="track" aria-hidden="true"><span class="track__fill"></span><span class="track__pin"></span></span>
-          <span class="live__state mono is-top">LIVE</span>
-          <span class="live__alt mono">04 LAUNCH</span>
-          <span class="live__note">The first cohort is using it. Watching the places the model bends.</span>
-        </div>
-
-        <div class="live__row" data-reveal="" data-p=".91">
-          <span class="live__route display">Fieldnote</span>
-          <span class="live__guide mono">E. ENGINEER</span>
-          <span class="live__party mono">×3</span>
-          <span class="track" aria-hidden="true"><span class="track__fill"></span><span class="track__pin"></span></span>
-          <span class="live__state mono is-down">IN DEVELOPMENT</span>
-          <span class="live__alt mono">03 DEVELOP</span>
-          <span class="live__note">Offline state is holding. Tightening sync before the next build.</span>
-        </div>
-
-        <div class="live__row" data-reveal="" data-p=".21">
-          <span class="live__route display">Northstar</span>
-          <span class="live__guide mono">C. LEAD</span>
-          <span class="live__party mono">×2</span>
-          <span class="track" aria-hidden="true"><span class="track__fill"></span><span class="track__pin"></span></span>
-          <span class="live__state mono is-hold">BLOCKED ON DECISION</span>
-          <span class="live__alt mono">02 DESIGN</span>
-          <span class="live__note">Two viable paths. Waiting for the one that keeps the system simple.</span>
-        </div>
-
-        <p class="live__scale mono">STATIONS — IDEA / DESIGN / BUILD / LAUNCH / LIVE / NEXT</p>
-      </div>
-
-      <p class="board__label mono" data-reveal="">RECENTLY</p>
-
-      <!-- A posted bulletin, not three cards: date, route, a status you can
-           scan down the column, and the note underneath. This is the board
-           on the bureau wall, updated when a rope comes back. -->
-      <div class="bulletin">
-        <div class="bulletin__head mono">
-          <span>DATE</span><span>PROJECT</span><span>STATUS</span><span>NOTE FROM THE BUILD</span>
-        </div>
-
-        <div class="bulletin__row" data-reveal="">
-          <span class="bulletin__date mono">05 AUG</span>
-          <span class="bulletin__route display">Meridian</span>
-          <span class="bulletin__status mono is-warn">READY TO LAUNCH</span>
-          <span class="bulletin__note">Copy is in. The last pass is about the edges.</span>
-        </div>
-        <div class="bulletin__row" data-reveal="">
-          <span class="bulletin__date mono">02 AUG</span>
-          <span class="bulletin__route display">Common Thread</span>
-          <span class="bulletin__status mono is-good">LIVE</span>
-          <span class="bulletin__note">Real users found the shortcut we missed. Kept it.</span>
-        </div>
-        <div class="bulletin__row" data-reveal="">
-          <span class="bulletin__date mono">28 JUL</span>
-          <span class="bulletin__route display">Fieldnote</span>
-          <span class="bulletin__status mono is-warn">BUILDING</span>
-          <span class="bulletin__note">The offline path is now the primary path.</span>
-        </div>
-        <div class="bulletin__row" data-reveal="">
-          <span class="bulletin__date mono">21 JUL</span>
-          <span class="bulletin__route display">Northstar</span>
-          <span class="bulletin__status mono is-shut">PAUSED</span>
-          <span class="bulletin__note">The simple answer won. The build will follow.</span>
-        </div>
-        <div class="bulletin__row" data-reveal="">
-          <span class="bulletin__date mono">14 JUL</span>
-          <span class="bulletin__route display">Vessel</span>
-          <span class="bulletin__status mono is-good">STABLE</span>
-          <span class="bulletin__note">The quiet system is doing its job.</span>
-        </div>
-      </div>
-
-      <p class="bulletin__foot mono" data-reveal="">UPDATED WHEN A RELEASE MOVES — NOT ON A SCHEDULE</p>
-    </section>
-
-    <!-- ============================================================
-         WP 11 — 21:00 — 1 035 M — REFUGE (FAQ + kit)
+         WP 08 — 21:00 — 1 035 M — REFUGE (FAQ + kit)
          ============================================================ -->
     <section class="refuge sec--dark" data-bg="#000000" data-alt="1035">
       <!-- Full-bleed plate: the hut holds the left third, the valley opens on
            the right and the questions are set into that open air. -->
       <div class="refuge__bg" aria-hidden="true">
-        <img class="refuge__img" src="https://cdn.jsdelivr.net/gh/Sam1983Aing/aura-assets@1.1.0/massif/refuge-dusk.jpg" alt="" decoding="async">
+        <img class="refuge__img" src="phase8/phase8-faq-contact.png" alt="An empty software studio workspace with a laptop and product screens at dusk" width="1536" height="1024" decoding="async">
         <div class="refuge__scrim"></div>
       </div>
 
-      <div class="slate mono"><span>◮ PHASE 11 / QUESTIONS</span><span>(FAQ + CONTACT)</span><span>READY WHEN YOU ARE</span></div>
+      <div class="slate mono"><span>◮ PHASE 08 / QUESTIONS</span><span>(FAQ + CONTACT)</span><span>READY WHEN YOU ARE</span></div>
 
       <div class="refuge__grid">
         <div class="refuge__side">
@@ -2112,8 +1973,8 @@ body { cursor: auto; }
             <!-- one answer stands open so the reserved room reads as the
                  section's rhythm rather than as a gap -->
             <details data-reveal="" open="">
-              <summary>Do you work with early-stage ideas? <span class="faq__mark mono" aria-hidden="true">+</span></summary>
-              <p>Yes. Bring the problem, the rough idea, or the version that is already live. We help find the next useful shape.</p>
+              <summary>Can I come to you with just an idea? <span class="faq__mark mono" aria-hidden="true">+</span></summary>
+              <p>Absolutely. You do not need a polished brief. Tell us what you are trying to solve, who it is for, or what you have so far. We will help you find the next step.</p>
             </details>
             <details data-reveal="">
               <summary>What does a typical project look like? <span class="faq__mark mono" aria-hidden="true">+</span></summary>
@@ -2121,15 +1982,15 @@ body { cursor: auto; }
             </details>
             <details data-reveal="">
               <summary>Can you work with our existing team? <span class="faq__mark mono" aria-hidden="true">+</span></summary>
-              <p>That is often the best setup. We join the room, make decisions visible, and leave your team stronger.</p>
+              <p>Yes. We can work alongside your team, fill in the gaps, and keep everyone moving toward the same goal.</p>
             </details>
             <details data-reveal="">
               <summary>What do you build? <span class="faq__mark mono" aria-hidden="true">+</span></summary>
-              <p>Websites, web apps, mobile apps, and custom software — including the systems they depend on.</p>
+              <p>We build websites, web apps, mobile apps, and custom software, including the systems behind them.</p>
             </details>
             <details data-reveal="">
               <summary>How do we start? <span class="faq__mark mono" aria-hidden="true">+</span></summary>
-              <p>Send a little context and the outcome you want. We will reply with the right next question.</p>
+              <p>Send us what you are working on and what you want to achieve. We will take it from there and come back with a clear next step.</p>
             </details>
           </div>
 
@@ -2150,12 +2011,12 @@ body { cursor: auto; }
     </section>
 
     <!-- ============================================================
-         WP 12 — 21:40 — 1 035 M — BACK AT THE VALLEY (footer)
+         WP 09 — 21:40 — 1 035 M — BACK AT THE VALLEY (footer)
          ============================================================ -->
     <footer id="contact" class="footer sec--dark" data-bg="#07090D" data-alt="1035">
-      <div class="slate mono"><span>◮ PHASE 12 / NEXT</span><span>(BACK TO THE WORK)</span><span>RELEASE COMPLETE</span></div>
+      <div class="slate mono"><span>◮ PHASE 09 / NEXT</span><span>(BACK TO THE WORK)</span><span>RELEASE COMPLETE</span></div>
 
-      <h2 class="footer__line display" data-lines=""><span class="l">The product <em class="acc">keeps.</em></span></h2>
+      <h2 class="footer__line display" data-lines=""><span class="l">Contact <em class="acc">us.</em></span></h2>
       <a class="footer__mail display" data-magnetic="" href="mailto:hello@codev.studio">HELLO@CODEV.STUDIO</a>
 
       <div class="footer__meta mono">
@@ -2169,11 +2030,10 @@ body { cursor: auto; }
           <a href="#line">PROCESS</a>
           <a href="#book">WORK</a>
           <a href="#tariff">SERVICES</a>
-          <a href="#log">LAUNCH LOG</a>
         </nav>
 
         <div class="footer__end">
-          <p class="footer__wp">PHASE 12/12 — RELEASE COMPLETE<br>© 2026 — CODEV</p>
+          <p class="footer__wp">PHASE 09/09 — RELEASE COMPLETE<br>© 2026 — CODEV</p>
           <!-- marks are inline paths, not icon-font or CDN requests: the page
                has to keep working opened straight off the filesystem -->
           <ul class="footer__social">
@@ -2236,9 +2096,6 @@ if (STATIC) {
     });
     document.querySelectorAll('[data-count-to]').forEach((el) => {
       el.textContent = fmt(parseFloat(el.dataset.countTo));
-    });
-    document.querySelectorAll('.live__row').forEach((row) => {
-      row.querySelector('.track')?.style.setProperty('--p', row.dataset.p || 0);
     });
     document.querySelector('.profile__reveal')?.setAttribute('width', 1400);
     document.querySelectorAll('.wp-marker').forEach((m) => { m.style.transform = 'translate(-50%, -50%) scale(1)'; });
@@ -3044,45 +2901,6 @@ function init() {
   }
 
   /* -------------------------------------------------------------
-     10) Summit register — the quote reveals word by word on scrub
-     ------------------------------------------------------------- */
-  const quote = document.querySelector('[data-words]');
-  quote.innerHTML = quote.textContent.trim().split(/\s+/)
-    .map((w) => `<span class="w">${w}</span>`).join(' ');
-  gsap.to(quote.querySelectorAll('.w'), {
-    opacity: 1, ease: 'none', stagger: 0.6,
-    scrollTrigger: { trigger: quote, start: 'top 78%', end: 'bottom 45%', scrub: 1 },
-  });
-
-  /* The print drifts up slightly slower than the column beside it — the
-     rotation lives on .register__print so hover can straighten it
-     without GSAP and the drift fighting over one transform. */
-  const drift = document.querySelector('.register__drift');
-  if (drift) {
-    gsap.fromTo(drift, { y: 46 }, {
-      y: -46, ease: 'none',
-      scrollTrigger: {
-        trigger: '.register', start: 'top bottom', end: 'bottom top', scrub: 1,
-      },
-    });
-  }
-
-  /* -------------------------------------------------------------
-     9b) Live ropes — each track runs out to the rope's station as its
-         row arrives, so the board reads as four ascents in progress
-         rather than four bars that were already drawn.
-     ------------------------------------------------------------- */
-  gsap.utils.toArray('.live__row').forEach((row, i) => {
-    const track = row.querySelector('.track');
-    if (!track) return;
-    gsap.fromTo(track, { '--p': 0 }, {
-      '--p': parseFloat(row.dataset.p) || 0,
-      duration: 1.5, ease: EASE, delay: i * 0.12,
-      scrollTrigger: { trigger: row, start: 'top 88%', once: true },
-    });
-  });
-
-  /* -------------------------------------------------------------
      10b) Refuge plate — the photograph drifts against the questions,
           and the lamps come up as the section arrives.
      ------------------------------------------------------------- */
@@ -3106,10 +2924,11 @@ function init() {
          1 035 up to 4 810 and back down to the valley.
      ------------------------------------------------------------- */
   const hudEl = document.querySelector('[data-hud-alt]');
+  const ACTIVE_SECTION_SELECTOR = '[data-alt]:not(.log):not(.register):not(.reports)';
   let anchors = [];
   const buildAnchors = () => {
     let phase = 1;
-    anchors = gsap.utils.toArray('[data-alt]').map((el) => ({
+    anchors = gsap.utils.toArray(ACTIVE_SECTION_SELECTOR).map((el) => ({
       y: el.getBoundingClientRect().top + window.scrollY,
       phase: (phase = parseInt(el.querySelector('.slate span')?.textContent.match(/PHASE\s*(\d+)/i)?.[1] || phase, 10)),
     })).sort((a, b) => a.y - b.y);
@@ -3134,14 +2953,14 @@ function init() {
   const railMarker = rail.querySelector('.rail__marker');
   const railLabel = rail.querySelector('[data-rail-label]');
   /* sections that carry no slate still deserve a waypoint */
-  const RAIL_FALLBACK = { hero: 'PHASE 01', vista: 'BUILD MOMENT', whiteout: 'SHIP MOMENT' };
+  const RAIL_FALLBACK = { hero: 'PHASE 01', vista: 'BUILD MOMENT', whiteout: 'LAUNCH MOMENT' };
   let railPoints = [];
 
   const scrollMax = () => Math.max(1, document.documentElement.scrollHeight - innerHeight);
 
   const buildRail = () => {
     rail.querySelectorAll('.rail__wp').forEach((n) => n.remove());
-    railPoints = gsap.utils.toArray('[data-alt]').map((sec) => {
+    railPoints = gsap.utils.toArray(ACTIVE_SECTION_SELECTOR).map((sec) => {
       const top = sec.getBoundingClientRect().top + window.scrollY;
       const p = gsap.utils.clamp(0, 1, top / scrollMax());
       const slateSpan = sec.querySelector('.slate span');
